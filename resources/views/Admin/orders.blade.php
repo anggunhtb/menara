@@ -90,7 +90,7 @@
                                                 <input type="hidden" name="order_id" value="{{ $order->id }}">
                                                 <select name="status" class="form-control" onchange="this.form.submit()">
                                                     <option value="pending" {{ $order->status == 'pending' ? 'selected' : '' }}>Pending</option>
-                                                    <option value="accept" {{ $order->status == 'accept' ? 'selected' : '' }}>Accept</option>
+                                                    <option value="dikemas" {{ $order->status == 'dikemas' ? 'selected' : '' }}>Dikemas</option>
                                                     <option value="done" {{ $order->status == 'done' ? 'selected' : '' }}>Done</option>
                                                 </select>
                                             </form>
@@ -111,6 +111,9 @@
                                                                 @foreach ($order->items as $item)
                                                                     <li class="list-group-item">
                                                                         {{ $item->post->nama }} - {{ $item->kuantitas }} pcs - Rp{{ $item->post->price }}
+                                                                    </li>
+                                                                    <li>
+                                                                        <!-- bukti pembayaran -->
                                                                     </li>
                                                                 @endforeach
                                                             </ul>

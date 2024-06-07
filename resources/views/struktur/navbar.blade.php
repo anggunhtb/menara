@@ -58,7 +58,8 @@
                 </div>
                 
                 @if (Auth::check())
-                    <span class="cart"><a href="{{ route('viewcart') }}">My Cart</a></span>
+                    <span class="cart" style="margin-right: 10px"><a href="{{ route('viewcart') }}">My Cart</a></span>
+                    <span class="cart"><a href="{{ route('viewcart') }}">My History</a></span>
                     <a style="margin-right: 10px; font-weight: bold; margin-inline-start: 10px">Hello, {{ Auth::user()->name }}</a>
                     <a href="{{ route('logout') }}" class="btn btn-primary px-3">Logout</a>
                 @else
