@@ -12,9 +12,8 @@
             <label for="metode_pembayaran">Payment Method:</label>
             <select id="metode_pembayaran" name="metode_pembayaran" class="form-control">
                 <option value="bank_transfer">Bank Transfer</option>
-                <option value="credit_card">Credit Card</option>
-                <option value="paypal">PayPal</option>
-                <option value="paypal">COD</option>
+                <option value="E-Wallet DANA">E-Wallet DANA</option>
+                <option value="SeaBank">SeaBank</option>
                 <!-- Pilih lainnya -->
             </select>
         </div>

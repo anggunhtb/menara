@@ -5,17 +5,20 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Kategori;
 use App\Models\Post;
+use App\Models\Keranjang;
 use App\Models\User;
 use App\Models\Feedback;
 use App\Models\Komentar;
+use Illuminate\Support\Facades\Auth;
 
 class FeedbackController extends Controller
 {
     public function UserFeedback()
     {
+        $cartItemsCount = Keranjang::where('user_id', Auth::id())->count();
         $kategori=Kategori::all();
         $komentar=Komentar::all();
-        return view('User.feedback',compact('kategori','komentar'));
+        return view('User.feedback',compact('kategori','komentar','cartItemsCount'));
     }
     public function komentar(Request $request)
     {

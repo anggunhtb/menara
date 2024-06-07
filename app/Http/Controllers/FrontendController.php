@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Kategori;
 use App\Models\keranjang;
+use Illuminate\Support\Facades\Auth;
 
 class FrontendController extends Controller
 {
@@ -13,30 +14,39 @@ class FrontendController extends Controller
     {
         $kategori = Kategori::all();
         $krnjg = keranjang::get();
-        return view('Admin.Feedback.all', compact('krnjg','kategori'));
+        $cartItemsCount = Keranjang::where('user_id', Auth::id())->count();
+
+    return view('Admin.Feedback.all', compact('cartItemsCount','kategori'));
     }
     public function index()
     {
-        $krnjg = keranjang::get();
         $kategori = Kategori::all();
-        return view('User.Home', compact('krnjg','kategori'));
+        $krnjg = keranjang::get();
+        $cartItemsCount = Keranjang::where('user_id', Auth::id())->count();
+        return view('User.Home', compact('cartItemsCount','kategori'));
     }
     public function User()
     {
         $kategori = Kategori::all();
-        return view('User.Home', compact('kategori'));
+        $cartItemsCount = Keranjang::where('user_id', Auth::id())->count();
+
+        return view('User.Home', compact('kategori','cartItemsCount'));
     }
 
     public function aboutus()
     {
         $kategori = Kategori::all();
-        return view('User.about', compact('kategori'));
+        $cartItemsCount = Keranjang::where('user_id', Auth::id())->count();
+
+        return view('User.about', compact('kategori','cartItemsCount'));
     }
 
     public function reservasi()
     {
         $kategori = Kategori::all();
-        return view('User.reservasi', compact('kategori'));
+        $cartItemsCount = Keranjang::where('user_id', Auth::id())->count();
+
+        return view('User.reservasi', compact('kategori','cartItemsCount'));
     }
 
     public function Kategori($slug)
@@ -44,7 +54,8 @@ class FrontendController extends Controller
         $kategori = Kategori::all();
         $kategoris = Kategori::where('slug', $slug)->firstOrFail();
         $item = $kategoris->produk()->get();
+        $cartItemsCount = Keranjang::where('user_id', Auth::id())->count();
 
-        return view('User.menu', compact('kategori', 'item'));
+        return view('User.menu', compact('kategori', 'item','cartItemsCount'));
     }
 }

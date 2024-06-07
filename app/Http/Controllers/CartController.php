@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Keranjang;
 use App\Models\Kategori;
+use App\Models\Order;
 use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
 
@@ -36,23 +37,26 @@ class CartController extends Controller
 
     public function viewCart($slug = null)
     {
+        $cartItemsCount = Keranjang::where('user_id', Auth::id())->count();
         $user = Auth::user();
         $cartItems = Keranjang::where('user_id', $user->id)->get();
         $kategori = Kategori::all();
-
+        $orders = Order::with(['items.post'])->where('user_id', $user->id)->get();
+    
         if ($cartItems->isEmpty()) {
             return redirect()->back()->with('alert', 'Keranjang Anda kosong.');
         }
-
+    
         if ($slug) {
             $kategoris = Kategori::where('slug', $slug)->firstOrFail();
             $item = $kategoris->produk()->get();
         } else {
             $item = []; // or some default value, e.g., all products
         }
-
-        return view('User.cart', compact('cartItems', 'kategori', 'item'));
+    
+        return view('User.cart', compact('cartItems', 'kategori', 'item', 'cartItemsCount', 'orders'));
     }
+    
 
     public function updateCart(Request $request)
     {

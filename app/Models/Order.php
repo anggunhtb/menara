@@ -14,18 +14,13 @@ class Order extends Model
         'user_id',
         'status',
         'metode_pembayaran',
+        'bukti_pembayaran',
     ];
 
     public function user()
     {
         return $this->belongsTo(User::class);
     }
-
-    public function pembayaran()
-    {
-        return $this->hasOne(Pembayaran::class);
-    }
-
     public function items()
     {
         return $this->hasMany(Order_Items::class);

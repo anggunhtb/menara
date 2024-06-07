@@ -28,6 +28,20 @@
     th {
         background-color: #f2f2f2; /* Set a different background for the header */
     }
+    .cart-icon {
+        position: relative;
+        display: inline-block;
+    }
+    .cart-badge {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        height: 10px;
+        width: 10px;
+        background-color: red;
+        border-radius: 50%;
+        display: inline-block;
+    }
 </style>
 
 <div class="container">
@@ -70,4 +84,37 @@
     <form action="{{ route('checkout') }}" method="GET" style="margin-top: 20px;">
         <button type="submit" class="btn btn-success">Checkout Now!</button>
     </form>
+
+    <!-- Order History Table -->
+    <h2 class="py-4" style="margin-top: 50px">Order History</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Order Code</th>
+                <th>Status</th>
+                <th>Total</th>
+                <th>Payment Method</th>
+                <th>Payment Proof</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($orders as $order)
+            <tr>
+                <td>{{ $order->id }}</td>
+                <td>{{ $order->order_code }}</td>
+                <td>{{ $order->status }}</td>
+                <td>{{ $order->total_harga }}</td>
+                <td>{{ $order->metode_pembayaran }}</td>
+                <td>
+                    @if ($order->bukti_pembayaran)
+                        <a href="{{ asset('bukti_pembayaran/' . $order->bukti_pembayaran) }}" target="_blank">View</a>
+                    @else
+                        Not available
+                    @endif
+                </td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
 </div>

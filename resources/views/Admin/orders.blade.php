@@ -75,6 +75,7 @@
                                     <th>Status</th>
                                     <th>Action</th>
                                     <th>Details</th>
+                                    <th>Bukti Pembayaran</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -112,9 +113,6 @@
                                                                     <li class="list-group-item">
                                                                         {{ $item->post->nama }} - {{ $item->kuantitas }} pcs - Rp{{ $item->post->price }}
                                                                     </li>
-                                                                    <li>
-                                                                        <!-- bukti pembayaran -->
-                                                                    </li>
                                                                 @endforeach
                                                             </ul>
                                                         </div>
@@ -125,10 +123,18 @@
                                                 </div>
                                             </div>
                                         </td>
+                                        <td>
+                                            @if ($order->bukti_pembayaran)
+                                                <a href="{{ asset('bukti_pembayaran/' . $order->bukti_pembayaran) }}" target="_blank">View</a>
+                                            @else
+                                                Not available
+                                            @endif
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
+                        
                     </div>
                 </div>
             </section>

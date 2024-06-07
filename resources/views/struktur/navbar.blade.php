@@ -8,6 +8,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <meta content="Free HTML Templates" name="keywords" />
     <meta content="Free HTML Templates" name="description" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <!-- Favicon -->
     <link href="img/favicon.ico" rel="icon" />
@@ -56,15 +57,39 @@
                     </div>
                     <a href="/aboutus" class="nav-item nav-link">About Us</a>
                 </div>
+                <style>
+                    .cart-icon {
+                        position: relative;
+                        display: inline-block;
+                    }
+                
+                    .cart-badge {
+                        position: absolute;
+                        top: -5px;
+                        right: -5px;
+                        height: 10px;
+                        width: 10px;
+                        background-color: red;
+                        border-radius: 50%;
+                        display: inline-block;
+                    }
+                </style>
                 
                 @if (Auth::check())
-                    <span class="cart" style="margin-right: 10px"><a href="{{ route('viewcart') }}">My Cart</a></span>
-                    <span class="cart"><a href="{{ route('viewcart') }}">My History</a></span>
+                    <span class="cart-icon" style="margin-right: 10px">
+                        <a href="{{ route('viewcart') }}">
+                            <i class="fas fa-shopping-cart"></i>
+                            @if ($cartItemsCount  > 0) <!-- Check if there are items in the cart -->
+                                <span class="cart-badge"></span>
+                            @endif
+                        </a>
+                    </span>
                     <a style="margin-right: 10px; font-weight: bold; margin-inline-start: 10px">Hello, {{ Auth::user()->name }}</a>
                     <a href="{{ route('logout') }}" class="btn btn-primary px-3">Logout</a>
                 @else
                     <a href="/login" class="btn btn-primary px-3">Login</a>
                 @endif
+
             </div>
         </nav>
         

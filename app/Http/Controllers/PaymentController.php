@@ -13,6 +13,7 @@ class PaymentController extends Controller
 {
     public function checkout()
     {
+        $cartItemsCount = Keranjang::where('user_id', Auth::id())->count();
         $user = Auth::user();
         $cartItems = Keranjang::where('user_id', $user->id)->get();
         $totalHarga = $cartItems->sum(function($item) {
@@ -24,7 +25,7 @@ class PaymentController extends Controller
             return redirect()->route('viewcart')->with('alert', 'Keranjang Anda kosong.');
         }
 
-        return view('User.checkout', compact('totalHarga', 'kategori'));
+        return view('User.checkout', compact('totalHarga', 'kategori','cartItemsCount'));
     }
 
     public function processPayment(Request $request)
